@@ -20,4 +20,11 @@ module.exports = (app) => {
     res.send({ User: req.user })
   })
 
+  app.get(
+    '/api/getuser',
+    (req, res) => {
+      res.send(req.session.passport.user)
+    }
+  );
+
 };
