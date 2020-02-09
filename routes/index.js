@@ -16,14 +16,20 @@ module.exports = (app) => {
   );
 
   app.get('/api/logout', (req, res) => {
-    req.logout();
-    res.send({ User: req.user })
+    req.session = null
+    //res.send({ User: req.user })
+    res.redirect('/')
   })
 
   app.get(
     '/api/getuser',
     (req, res) => {
-      res.send(req.session.passport.user)
+      try {
+        res.send(req.session.passport.user)
+      }
+      catch {
+        res.send('No user')
+      }
     }
   );
 

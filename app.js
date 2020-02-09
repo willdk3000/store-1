@@ -22,16 +22,11 @@ app.use(
   })
 )
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 require('./routes')(app);
-
-// Serve static files from the React app
-
-//app.use('/public', express.static('public'))
-//app.use(express.static('public'));
-
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static('client/build'));
-// }
 
 // catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

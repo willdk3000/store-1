@@ -23,32 +23,24 @@ passport.use(
       //userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
       //scope: ['email']
     },
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
 
-      users
-        .findOne({ profileid: profile.id })
-        .then(user => {
-          if (user) {
-            console.log("User found in DB!");
-            const userData = {
-              googleid: profile.id,
-              email: profile.emails[0].value,
-              token: accessToken
-            };
-            return done(null, userData);
-          } else {
-            const newUser = {
-              method: 'google',
-              profileid: profile.id,
-              email: profile.emails[0].value,
-              prenom: profile.name.givenName,
-              nom: profile.name.familyName,
-            }
-            users.insert(newUser)
-              .then(insertedUser => {
-                console.log("User created!")
-                return done(null, insertedUser);
-              });
-          }
-        });
-    }));
+      const existingUser = await users.findOne({ profileid: profile.id })
+
+      if (existingUser) {
+        console.log("User found in DB!");
+        return done(null, existingUser);
+      }
+      const newUser = {
+        method: 'google',
+        profileid: profile.id,
+        email: profile.emails[0].value,
+        prenom: profile.name.givenName,
+        nom: profile.name.familyName,
+      }
+      const user = await users.insert(newUser)
+      console.log("User created!")
+      return done(null, user);
+      ;
+    }
+  ));
