@@ -5,6 +5,7 @@ const Auth = () => {
 
   const [user, setUser] = useState('');
   const [auth, setAuth] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     getUser()
@@ -12,16 +13,18 @@ const Auth = () => {
       .then(setUser)
   }, [auth]);
 
-  function handleLogout(e) {
-    logout();
+  async function handleLogout(e) {
+    setIsLoading(true);
+    const response = await logout();
     setAuth(0);
-    console.log('Logged out', user, auth);
+    setIsLoading(false);
   }
 
-  function handleLogin(e) {
-    login();
+  async function handleLogin(e) {
+    setIsLoading(true);
+    const response = await login();
     setAuth(1);
-    console.log('Logged in', user, auth)
+    setIsLoading(false);
   }
 
   return (
@@ -31,12 +34,17 @@ const Auth = () => {
         <button className="info" onClick={(e) => handleLogout(e)}>Logout</button>
       </div >
     )
-      :
-      <div className="container">
-        <br />
-        <button className="info" onClick={(e) => handleLogin(e)}>Sign in with Google</button>
-        <br />
-      </div >
+      : auth === 0 && isLoading === false ? (
+        <div className="container">
+          <br />
+          <button className="info" onClick={(e) => handleLogin(e)}>Sign in with Google</button>
+          <br />
+        </div >
+      ) : (
+          <div className="container">
+            Loading...
+        </div>
+        )
   )
 }
 
