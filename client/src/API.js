@@ -1,6 +1,6 @@
 //Get all threads
-export async function getUser() {
-  const response = await fetch('/api/getuser');
+export function getUser() {
+  const response = fetch('/api/getuser');
   return response;
 };
 
@@ -9,8 +9,8 @@ export function logout() {
   return response;
 };
 
-export async function login() {
-  const response = await fetch('/auth/google', {
+export function login() {
+  const response = fetch('/auth/google', {
     mode: 'no-cors',
   });
   return response
