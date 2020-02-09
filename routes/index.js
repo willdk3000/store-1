@@ -33,4 +33,20 @@ module.exports = (app) => {
     }
   );
 
+  /* SECRET ROUTES*/
+  function isUserAuthenticated(req, res, next) {
+    try {
+      if (req.session.passport.user) {
+        next();
+      }
+    }
+    catch {
+      res.send('You must login to access secret routes!');
+    }
+  }
+
+  app.get('/api/getsecret', isUserAuthenticated, (req, res) => {
+    res.send({ cool: 1 });
+  })
+
 };

@@ -15,3 +15,8 @@ export function login() {
   });
   return response
 }
+
+export function secret() {
+  const response = fetch('/api/getsecret');
+  return response
+}
