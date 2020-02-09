@@ -4,7 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const db = require('../config/db.js');
 const users = db.get('users');
 
-//GOOGLE STRATEGY - for first login and setting cookie
+//GOOGLE STRATEGY
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -20,8 +20,6 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: '/auth/google/callback'
-      //userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-      //scope: ['email']
     },
     async (accessToken, refreshToken, profile, done) => {
 
