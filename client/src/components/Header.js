@@ -7,7 +7,7 @@ const Header = () => (
 
     <div id="headnav" className="container">
       <nav className="navbar navbar-expand-md">
-        <p className="navbar-brand mb-0 h1 text-white"><i className="far fa-address-card"></i> Auth Tester</p>
+        <p className="navbar-brand mb-0 h1 text-white"><i className="far fa-address-card"></i> Store Tester</p>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <i className="fas fa-bars" style={{ color: '#FFFFFF' }}></i>
         </button>
