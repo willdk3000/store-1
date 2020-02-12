@@ -1,6 +1,7 @@
-# Auth starter
+# Store starter
 
-Authorization starter : minimal backend setup for google oauth + react/hooks frontend
+Store starter : minimal backend setup for google oauth + react/hooks frontend
+AND store template
 
 ### Prerequisites
 

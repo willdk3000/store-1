@@ -26,7 +26,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-require('./routes')(app);
+require('./routes/auth')(app);
+require('./routes/billing')(app);
+
 
 // catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

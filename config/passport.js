@@ -35,6 +35,7 @@ passport.use(
         email: profile.emails[0].value,
         prenom: profile.name.givenName,
         nom: profile.name.familyName,
+        credits: 0
       }
       const user = await users.insert(newUser)
       console.log("User created!")
