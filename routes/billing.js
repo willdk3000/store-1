@@ -23,7 +23,7 @@ module.exports = (app) => {
     const charge = await stripe.charges.create(
       {
         amount: 500,
-        currency: 'usd',
+        currency: 'cad',
         source: req.body.token.id,
         description: 'My First Test Charge (created for API docs)',
       })

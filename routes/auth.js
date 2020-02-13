@@ -11,14 +11,14 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate("google"),
     (req, res) => {
-      res.send(req.user)
+      res.send(req.session.passport.user)
     }
   );
 
   app.get('/api/logout', (req, res) => {
     req.session = null
-    //res.send({ User: req.user })
-    res.redirect('/')
+    res.send('Successfully logged out')
+    //res.redirect('/')
   })
 
   app.get(
@@ -28,7 +28,7 @@ module.exports = (app) => {
         res.send(req.session.passport.user)
       }
       catch {
-        res.send('No user')
+        res.send('No user logged in')
       }
     }
   );

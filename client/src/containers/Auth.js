@@ -12,22 +12,25 @@ const Auth = () => {
   useEffect(() => {
     getUser()
       .then(res => res.json())
-      .then(setUser)
-      .then(console.log(user, creditUpdate))
-  }, [creditUpdate]);
+      .then(user => {
+        setUser(user);
+        console.log(user);
+      })
+  }, [creditUpdate, user.method]);
 
 
   async function handleLogout(e) {
     setIsLoading(true);
     const response = await logout();
-    setAuth(0);
+    setUser(response);
     setIsLoading(false);
   }
 
   async function handleLogin(e) {
     setIsLoading(true);
     const response = await login();
-    setAuth(1);
+    getUser().then(res => res.json())
+      .then(user => setUser(user));
     setIsLoading(false);
   }
 
@@ -38,7 +41,7 @@ const Auth = () => {
   }
 
   return (
-    auth === 1 ? (
+    user.method ? (
       <div className="container text-center">
         <h1>Hi {user.email} !</h1>
         <p>You have {user.credits} credits!</p>
@@ -47,7 +50,7 @@ const Auth = () => {
         <br />
       </div >
     )
-      : auth === 0 && isLoading === false ? (
+      : user.method === undefined && isLoading === false ? (
         <div className="container text-center">
           <br />
           <button className="info" onClick={(e) => handleLogin(e)}>Sign in with Google</button>
