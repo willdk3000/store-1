@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { getUser, logout, login, sendStripeToken } from '../API.js'
+import { getUser, logout, login, sendStripeToken, getCredits } from '../API.js'
 import Payment from '../components/Payment'
 
 const Auth = () => {
 
   const [user, setUser] = useState('');
-  const [auth, setAuth] = useState(0);
-  const [creditUpdate, setCreditUpdate] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [checkUser, setCheckUser] = useState(0);
 
+  // When page loads, ask server if user is already logged in
   useEffect(() => {
     getUser()
       .then(res => res.json())
       .then(user => {
         setUser(user);
-        console.log(user);
+        //console.log(user);
       })
-  }, [creditUpdate, user.method]);
+  }, [checkUser]);
 
 
   async function handleLogout(e) {
@@ -29,15 +29,14 @@ const Auth = () => {
   async function handleLogin(e) {
     setIsLoading(true);
     const response = await login();
-    getUser().then(res => res.json())
-      .then(user => setUser(user));
+    // When logged in, update "user" to returned value
+    setCheckUser(checkUser + 1);
     setIsLoading(false);
   }
 
   async function handleUpdateCredits(token) {
     let sendToken = await sendStripeToken(token);
-    let newCredits = creditUpdate + 1;
-    let updateCredits = await setCreditUpdate(newCredits);
+    setCheckUser(checkUser + 1);
   }
 
   return (

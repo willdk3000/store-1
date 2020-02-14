@@ -9,8 +9,8 @@ export function logout() {
   return response;
 };
 
-export function login() {
-  const response = fetch('/auth/google', {
+export async function login() {
+  const response = await fetch('/auth/google', {
     mode: 'no-cors',
   });
   return response
@@ -22,6 +22,8 @@ export function secret() {
 }
 
 // PAYMENT ENDPOINTS
+
+// Buy credits
 export function sendStripeToken(token) {
   const response = fetch('/api/sendStripeToken', {
     method: 'POST',
@@ -33,4 +35,10 @@ export function sendStripeToken(token) {
     })
   });
   return response
+};
+
+// Get credit total
+export async function getCredits() {
+  const response = await fetch('/api/getcredits');
+  return response.json()
 };

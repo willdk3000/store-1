@@ -18,6 +18,7 @@ module.exports = (app) => {
 
 
   /* STRIPE */
+  /* Buy credits */
   app.post('/api/sendStripeToken', isUserAuthenticated, async (req, res) => {
     //console.log(req.body)
     const charge = await stripe.charges.create(
@@ -36,4 +37,16 @@ module.exports = (app) => {
     res.send(user);
   })
 
+
+  /* Check credit total */
+  app.get(
+    '/api/getcredits',
+    async (req, res) => {
+      let user = await users.findOne({ email: req.session.passport.user.email });
+      res.send(user);
+    }
+  );
+
+
 }
+

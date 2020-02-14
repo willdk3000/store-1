@@ -1,4 +1,6 @@
 const passport = require('passport');
+const db = require('../config/db.js');
+const users = db.get('users');
 
 module.exports = (app) => {
 
@@ -23,9 +25,11 @@ module.exports = (app) => {
 
   app.get(
     '/api/getuser',
-    (req, res) => {
+    async (req, res) => {
       try {
-        res.send(req.session.passport.user)
+        let user = await users.findOne({ email: req.session.passport.user.email });
+        res.send(user)
+        //res.send(req.session.passport.user)
       }
       catch {
         res.send('No user logged in')
