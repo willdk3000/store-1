@@ -28,8 +28,7 @@ module.exports = (app) => {
         source: req.body.token.id,
         description: 'My First Test Charge (created for API docs)',
       })
-    //console.log(charge);
-    let currentCredits = req.session.passport.user.credits
+    let currentCredits = req.body.user.credits;
     currentCredits += 5;
     const user = await users.findOneAndUpdate(
       { email: req.session.passport.user.email },

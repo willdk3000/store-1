@@ -24,14 +24,15 @@ export function secret() {
 // PAYMENT ENDPOINTS
 
 // Buy credits
-export function sendStripeToken(token) {
+export function sendStripeToken(token, user) {
   const response = fetch('/api/sendStripeToken', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
     },
     body: JSON.stringify({
-      'token': token
+      'token': token,
+      'user': user
     })
   });
   return response

@@ -35,7 +35,7 @@ const Auth = () => {
   }
 
   async function handleUpdateCredits(token) {
-    let sendToken = await sendStripeToken(token);
+    let sendToken = await sendStripeToken(token, user);
     setCheckUser(checkUser + 1);
   }
 
@@ -44,7 +44,7 @@ const Auth = () => {
       <div className="container text-center">
         <h1>Hi {user.email} !</h1>
         <p>You have {user.credits} credits!</p>
-        <Payment updateCredits={handleUpdateCredits} />
+        <Payment updateCredits={handleUpdateCredits} user={user} />
         <button className="info" onClick={(e) => handleLogout(e)}>Logout</button>
         <br />
       </div >
