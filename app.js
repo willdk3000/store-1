@@ -2,19 +2,37 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const mongoose = require('mongoose');
 
 require('dotenv').config();
 const app = express();
 
+/* Mongoose connection */
+// DB has to be setup before passport to make sure we can access
+// db when authorizing
+// Fix deprecation
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+// Connect to mongo database
+mongoose.connect(process.env.DATABASE_URL);
+// Import mongoose schemas
+require('./models/User')
+/* ***************** */
+
+// Passport config
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passport");
 
+// Body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+// Cookies
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -22,9 +40,11 @@ app.use(
   })
 )
 
+// Backend routes
 require('./routes/auth')(app);
 require('./routes/billing')(app);
 
+// Frontend routes
 if (process.env.NODE_ENV === 'production') {
 
   //  Serve up react build if route found

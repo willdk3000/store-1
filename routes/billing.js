@@ -1,6 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const db = require('../config/db.js');
-const users = db.get('users');
+
+const mongoose = require("mongoose");
+const User = mongoose.model('users');
 
 module.exports = (app) => {
 
@@ -30,7 +31,7 @@ module.exports = (app) => {
       })
     let currentCredits = req.body.user.credits;
     currentCredits += 5;
-    const user = await users.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { email: req.session.passport.user.email },
       { $set: { credits: currentCredits } })
     res.send(user);
@@ -41,7 +42,7 @@ module.exports = (app) => {
   app.get(
     '/api/getcredits',
     async (req, res) => {
-      let user = await users.findOne({ email: req.session.passport.user.email });
+      let user = await User.findOne({ email: req.session.passport.user.email });
       res.send(user);
     }
   );

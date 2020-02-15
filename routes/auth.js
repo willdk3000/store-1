@@ -1,6 +1,7 @@
 const passport = require('passport');
-const db = require('../config/db.js');
-const users = db.get('users');
+
+const mongoose = require("mongoose");
+const User = mongoose.model('users');
 
 module.exports = (app) => {
 
@@ -27,7 +28,7 @@ module.exports = (app) => {
     '/api/getuser',
     async (req, res) => {
       try {
-        let user = await users.findOne({ email: req.session.passport.user.email });
+        let user = await User.findOne({ email: req.session.passport.user.email });
         res.send(user)
         //res.send(req.session.passport.user)
       }
