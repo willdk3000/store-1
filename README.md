@@ -49,4 +49,6 @@ npm run dev // to start up app
 * create-react-app
 * cookie-session
 * passport
-* monk (mongodb ODM)
+* mongoose (mongodb ODM)
+* stripe
+* sendgrid

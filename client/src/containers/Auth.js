@@ -41,13 +41,14 @@ const Auth = () => {
 
   async function handleSendSurvey() {
     const survey = {
-      title: 'my title',
-      subject: 'my subject',
+      title: 'Short survey',
+      subject: 'Product feedback',
       recipients: 'w.doucetk@gmail.com',
-      body: 'Here is the body'
+      body: 'Did you like your product?'
     }
 
     let sentMail = await sendSurvey(survey);
+    setCheckUser(checkUser + 1);
   }
 
   return (
