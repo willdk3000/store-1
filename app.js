@@ -19,12 +19,13 @@ mongoose.set('useUnifiedTopology', true);
 mongoose.connect(process.env.DATABASE_URL);
 // Import mongoose schemas
 require('./models/User')
+require('./models/Survey')
 /* ***************** */
 
 // Passport config
 app.use(passport.initialize());
 app.use(passport.session());
-require("./config/passport");
+require("./services/passport");
 
 // Body parser
 app.use(bodyParser.json());
@@ -43,6 +44,7 @@ app.use(
 // Backend routes
 require('./routes/auth')(app);
 require('./routes/billing')(app);
+require('./routes/survey')(app);
 
 // Frontend routes
 if (process.env.NODE_ENV === 'production') {

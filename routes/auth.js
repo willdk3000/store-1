@@ -3,6 +3,8 @@ const passport = require('passport');
 const mongoose = require("mongoose");
 const User = mongoose.model('users');
 
+const requireLogin = require('../middlewares/requireLogin')
+
 module.exports = (app) => {
 
   /* GOOGLE AUTH */
@@ -39,18 +41,7 @@ module.exports = (app) => {
   );
 
   /* SECRET ROUTES*/
-  function isUserAuthenticated(req, res, next) {
-    try {
-      if (req.session.passport.user) {
-        next();
-      }
-    }
-    catch {
-      res.send('You must login to access secret routes!');
-    }
-  }
-
-  app.get('/api/getsecret', isUserAuthenticated, (req, res) => {
+  app.get('/api/getsecret', requireLogin, (req, res) => {
     res.send({ cool: 1 });
   })
 

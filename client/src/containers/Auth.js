@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUser, logout, login, sendStripeToken, getCredits } from '../API.js'
+import { getUser, logout, login, sendStripeToken, sendSurvey } from '../API.js'
 import Payment from '../components/Payment'
 
 const Auth = () => {
@@ -39,12 +39,24 @@ const Auth = () => {
     setCheckUser(checkUser + 1);
   }
 
+  async function handleSendSurvey() {
+    const survey = {
+      title: 'my title',
+      subject: 'my subject',
+      recipients: 'w.doucetk@gmail.com',
+      body: 'Here is the body'
+    }
+
+    let sentMail = await sendSurvey(survey);
+  }
+
   return (
     user.method ? (
       <div className="container text-center">
         <h1>Hi {user.email} !</h1>
         <p>You have {user.credits} credits!</p>
         <Payment updateCredits={handleUpdateCredits} user={user} />
+        <button className="info" onClick={() => handleSendSurvey()}>Send survey</button>
         <button className="info" onClick={(e) => handleLogout(e)}>Logout</button>
         <br />
       </div >

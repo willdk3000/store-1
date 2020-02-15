@@ -38,8 +38,19 @@ export function sendStripeToken(token, user) {
   return response
 };
 
-// Get credit total
-export async function getCredits() {
-  const response = await fetch('/api/getcredits');
-  return response.json()
-};
+
+// MAILER ENDPOINTS
+
+//Send survey
+export async function sendSurvey(survey) {
+  const response = await fetch('/api/surveys', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      survey
+    })
+  });
+  return response
+}
