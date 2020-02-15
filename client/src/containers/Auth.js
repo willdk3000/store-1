@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getUser, logout, login, sendStripeToken, sendSurvey } from '../API.js'
-import Payment from '../components/Payment'
+import Dashboard from './Dashboard'
 
 const Auth = () => {
 
@@ -53,20 +53,16 @@ const Auth = () => {
 
   return (
     user.method ? (
-      <div className="container text-center">
-        <h1>Hi {user.email} !</h1>
-        <p>You have {user.credits} credits!</p>
-        <Payment updateCredits={handleUpdateCredits} user={user} />
-        <button className="info" onClick={() => handleSendSurvey()}>Send survey</button>
-        <button className="info" onClick={(e) => handleLogout(e)}>Logout</button>
-        <br />
-      </div >
+      <Dashboard
+        user={user}
+        updateCredits={handleUpdateCredits}
+        sendSurvey={handleSendSurvey}
+        logout={handleLogout}
+      />
     )
       : user.method === undefined && isLoading === false ? (
         <div className="container text-center">
-          <br />
-          <button className="info" onClick={(e) => handleLogin(e)}>Sign in with Google</button>
-          <br />
+          <button id="login-button" className="btn btn-primary" onClick={(e) => handleLogin(e)}>Sign in with Google</button>
         </div >
       ) : (
           <div className="container text-center">

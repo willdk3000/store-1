@@ -8,7 +8,7 @@ const Payment = ({ updateCredits, user }) => {
         <StripeCheckout
           name='Store tester merch'
           description='5$ for 5 credits'
-          // amount is in US cents
+          // amount is in cents
           amount={500}
           token={token => updateCredits(token, user)}
           stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
