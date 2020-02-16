@@ -39,7 +39,7 @@ export function sendStripeToken(token, user) {
 };
 
 
-// MAILER ENDPOINTS
+// SURVEY ENDPOINTS
 
 //Send survey
 export async function sendSurvey(survey) {
@@ -52,5 +52,11 @@ export async function sendSurvey(survey) {
       survey
     })
   });
+  return response
+}
+
+//Get surveys
+export function getSurveys() {
+  const response = fetch('/api/surveys');
   return response
 }

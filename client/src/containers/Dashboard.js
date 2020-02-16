@@ -1,7 +1,8 @@
 import React from 'react';
 import Payment from '../components/Payment'
+import { Link } from 'react-router-dom'
 
-const Dashboard = ({ logout, sendSurvey, updateCredits, user }) => {
+const Dashboard = ({ logout, updateCredits, user, surveys }) => {
   return (
     <div className="container text-center">
 
@@ -25,16 +26,40 @@ const Dashboard = ({ logout, sendSurvey, updateCredits, user }) => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title">Surveys sent</h5>
-              <p className="card-text">Number of surveys</p>
-              <button className="btn btn-info" onClick={() => sendSurvey()}>Send survey</button>
+              <p className="card-text">{surveys.length}</p>
+              <button className="btn btn-info">
+                <Link to="/newSurvey" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+                  Create survey
+              </Link>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="col-lg-6" id="bottom-button">
-        <i className="fas fa-plus-circle" style={{ fontSize: '60px', color: 'red' }}></i>
+      <div>
+        {surveys.reverse().map((survey) => (
+          <div className="card" style={{ marginTop: '15px' }} key={survey._id}>
+            <div className="card-header">
+              {survey.title}
+            </div>
+            <div className="card-body">
+              <h5 className="card-title">{survey.subject}</h5>
+              <p className="card-text">{survey.body}</p>
+              <p style={{ display: "inline-block" }}>Yes : {survey.yes}</p>
+              <p style={{ display: "inline-block", marginLeft: "5px" }}>No : {survey.no}</p>
+              <p className="text-right">Sent on : {new Date(survey.dateSent).toLocaleDateString()}</p>
+            </div>
+          </div>
+        ))}
       </div>
+
+      <div className="col-lg-12 text-right" id="bottom-button">
+        <Link to="/newSurvey" style={{ textDecoration: 'none', color: '#FFFFFF' }}>
+          <i className="fas fa-plus-circle" style={{ fontSize: '60px', color: 'red' }}></i>
+        </Link>
+      </div>
+
     </div >
   );
 };

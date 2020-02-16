@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUser, logout, login, sendStripeToken, sendSurvey } from '../API.js'
+import { getUser, logout, login, sendStripeToken, getSurveys } from '../API.js'
 import Dashboard from './Dashboard'
 
 const Auth = () => {
@@ -7,6 +7,7 @@ const Auth = () => {
   const [user, setUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [checkUser, setCheckUser] = useState(0);
+  const [surveys, setSurveys] = useState([]);
 
   // When page loads, ask server if user is already logged in
   useEffect(() => {
@@ -18,6 +19,14 @@ const Auth = () => {
       })
   }, [checkUser]);
 
+  useEffect(() => {
+    getSurveys()
+      .then(res => res.json())
+      .then(surveys => {
+        setSurveys(surveys)
+        console.log(surveys)
+      })
+  }, [])
 
   async function handleLogout(e) {
     setIsLoading(true);
@@ -39,25 +48,13 @@ const Auth = () => {
     setCheckUser(checkUser + 1);
   }
 
-  async function handleSendSurvey() {
-    const survey = {
-      title: 'Short survey',
-      subject: 'Product feedback',
-      recipients: 'w.doucetk@gmail.com',
-      body: 'Did you like your product?'
-    }
-
-    let sentMail = await sendSurvey(survey);
-    setCheckUser(checkUser + 1);
-  }
-
   return (
     user.method ? (
       <Dashboard
         user={user}
         updateCredits={handleUpdateCredits}
-        sendSurvey={handleSendSurvey}
         logout={handleLogout}
+        surveys={surveys}
       />
     )
       : user.method === undefined && isLoading === false ? (
