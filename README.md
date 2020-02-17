@@ -52,3 +52,6 @@ npm run dev // to start up app
 * mongoose (mongodb ODM)
 * stripe
 * sendgrid
+* react-final-form
+* lodash
+* path-parser
