@@ -13,7 +13,7 @@ const Payment = ({ updateCredits, user }) => {
           token={token => updateCredits(token, user)}
           stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
         >
-          <button className="btn btn-primary">Buy credits</button>
+          <button className="btn btn-primary">Buy 5 credits</button>
         </StripeCheckout>
       </div>
     </React.Fragment>
