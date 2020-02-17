@@ -3,9 +3,6 @@ import React from 'react'
 import { Field } from 'react-final-form'
 import Wizard from '../components/surveys/Wizard'
 
-import { sendSurvey } from '../API.js'
-
-
 //const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 const onSubmit = async values => {
   // await sleep(300)

@@ -7,19 +7,6 @@ const requireLogin = require('../middlewares/requireLogin')
 
 module.exports = (app) => {
 
-  /* Secret routes checker*/
-  // function isUserAuthenticated(req, res, next) {
-  //   try {
-  //     if (req.session.passport.user) {
-  //       next();
-  //     }
-  //   }
-  //   catch {
-  //     res.send('You must login to access this route!');
-  //   }
-  // }
-
-
   /* STRIPE */
   /* Buy credits */
   app.post('/api/sendStripeToken', requireLogin, async (req, res) => {

@@ -59,12 +59,12 @@ class Wizard extends React.Component {
   sendSurvey = async (values, history) => {
     // await sleep(300)
     // window.alert(JSON.stringify(values, 0, 2))
-    let sentMail = await sendSurvey(values);
+    await sendSurvey(values);
     this.props.history.push('/surveySent')
   }
 
   render() {
-    const { children, match, location, history } = this.props
+    const { children } = this.props
     const { page, values } = this.state
     const activePage = React.Children.toArray(children)[page]
     const isLastPage = page === React.Children.count(children) - 1

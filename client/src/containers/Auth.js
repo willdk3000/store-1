@@ -24,7 +24,6 @@ const Auth = () => {
       .then(res => res.json())
       .then(surveys => {
         setSurveys(surveys)
-        console.log(surveys)
       })
   }, [])
 
@@ -37,14 +36,14 @@ const Auth = () => {
 
   async function handleLogin(e) {
     setIsLoading(true);
-    const response = await login();
+    await login();
     // When logged in, update "user" to returned value
     setCheckUser(checkUser + 1);
     setIsLoading(false);
   }
 
   async function handleUpdateCredits(token) {
-    let sendToken = await sendStripeToken(token, user);
+    await sendStripeToken(token, user);
     setCheckUser(checkUser + 1);
   }
 
